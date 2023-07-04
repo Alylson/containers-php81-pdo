@@ -5,6 +5,8 @@ services:
     build: 
       context: ./site
       dockerfile: Dockerfile
+      #args:
+      #  - NODE_ENV=development
     ports:
       - '5173:5173'
     volumes:
@@ -25,3 +27,12 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./api:/var/www/html
+# oracle:
+#     image: gvenzl/oracle-xe:21
+#     ports:
+#       - 1521:1521
+#     environment:
+#       ORACLE_PASSWORD : root
+#       ORACLE_DATABASE : yiitest
+#       APP_USER: yiitest
+#       APP_USER_PASSWORD: root      
