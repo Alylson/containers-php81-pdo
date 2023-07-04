@@ -25,4 +25,7 @@ RUN docker-php-ext-install pdo_oci
 RUN docker-php-ext-configure oci8 --with-oci8=instantclient,/usr/local/instantclient_21_10,21.1
 RUN docker-php-ext-install oci8
 
+# Ignore ssl verify
+RUN git config --global http.sslVerify false
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
