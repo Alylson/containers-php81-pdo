@@ -2,7 +2,7 @@ FROM php:8.1-fpm
 
 WORKDIR /var/www/html
 
-RUN apt update -y && apt install --no-install-recommends unzip wget -y
+RUN apt update -y && apt install --no-install-recommends unzip wget git -y
 
 COPY . .
 ADD /instant_client/instantclient-basic-linux.x64-21.10.0.0.0dbru.zip /usr/local/instantclient-basic-linux.x64-21.10.0.0.0dbru.zip
@@ -28,4 +28,12 @@ RUN docker-php-ext-install oci8
 # Ignore ssl verify
 RUN git config --global http.sslVerify false
 
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN chown -R www-data /var/www/html
+RUN chmod -R 777 /var/www/html/storage
+
+COPY ./docker/build.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/build.sh
